@@ -15,6 +15,7 @@ Update the settings.example.py file by renaming it to settings.py
 1. Set up your Twitter API creds
 2. Update your Food Truck List
 3. Deploy to app engine.
+4. Tell your Food trucks to enable geo location in thier tweets and use the designated hashtag. (SEE settings.example.py)
 
 
 
