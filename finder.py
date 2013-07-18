@@ -37,15 +37,18 @@ def get_truck(truck_handle):
                 CONSUMER_KEY,
                 CONSUMER_SECRET)
     )
-    out = FOOD_TRUCK_HANDLES[truck_handle].copy()
-    result = parse_tweets(t.statuses.user_timeline(screen_name=out['username'],
-                                              exclude_replies=True,
-                                              contributor_details=False,
-                                              include_rts=False))
-    out['tweet'] = result[0]
-    out['geo'] = result[1]
+    if truck_handle in FOOD_TRUCK_HANDLES:
+        out = FOOD_TRUCK_HANDLES[truck_handle].copy()
+        result = parse_tweets(t.statuses.user_timeline(screen_name=out['username'],
+                                                exclude_replies=True,
+                                                contributor_details=False,
+                                                include_rts=False))
+        out['tweet'] = result[0]
+        out['geo'] = result[1]
 
-    return out
+        return out
+    else:
+        return {'error':'Couldnt find Truck'}
 
 
 def parse_tweets(tweets):
