@@ -1,3 +1,5 @@
+import sys
+sys.path.insert(0, 'libs')
 from twitter import *
 from settings import *
 import datetime
@@ -35,16 +37,17 @@ def parse_tweets(tweets):
 
             Since the api orders tweets like the timeline does, return
     """
-    now = datetime.datetime.now()
     from_zone = tz.gettz('UTC')
     to_zone = tz.gettz(TZ)
+    now = datetime.datetime.now()
+    now = now.replace(tzinfo=from_zone)
+    now = now.astimezone(to_zone)
 
     for tweet in tweets:
         # Thanks Stack Overflow: http://stackoverflow.com/questions/4770297/python-convert-utc-datetime-string-to-local-datetime
         twitter_date = parser.parse(tweet["created_at"])
         twitter_date.replace(tzinfo=from_zone)
         local_date = twitter_date.astimezone(to_zone)
-
         # we only care about today's tweets.
         if now.day == local_date.day:
             hashtags = [tag['text'] for tag in tweet['entities']['hashtags']]
