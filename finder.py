@@ -17,8 +17,8 @@ def get_trucks():
     )
     results = []
     for truck in FOOD_TRUCK_HANDLES:
-        out = truck.copy()
-        result = parse_tweets(t.statuses.user_timeline(screen_name=truck['username'],
+        out = FOOD_TRUCK_HANDLES[truck].copy()
+        result = parse_tweets(t.statuses.user_timeline(screen_name=out['username'],
                                               exclude_replies=True,
                                               contributor_details=False,
                                               include_rts=False))
@@ -27,6 +27,26 @@ def get_trucks():
         results.append(out)
 
     return results
+
+def get_truck(truck_handle):
+    """ GET a single truck by its name"""
+    t = Twitter(
+            auth=OAuth(
+                OAUTH_TOKEN,
+                OAUTH_SECRET,
+                CONSUMER_KEY,
+                CONSUMER_SECRET)
+    )
+    out = FOOD_TRUCK_HANDLES[truck_handle].copy()
+    result = parse_tweets(t.statuses.user_timeline(screen_name=out['username'],
+                                              exclude_replies=True,
+                                              contributor_details=False,
+                                              include_rts=False))
+    out['tweet'] = result[0]
+    out['geo'] = result[1]
+
+    return out
+
 
 def parse_tweets(tweets):
     """ Parse an array of tweets
