@@ -73,6 +73,7 @@ def parse_tweets(tweets):
         local_date = twitter_date.astimezone(to_zone)
         # we only care about today's tweets.
         if now.day == local_date.day:
+            #print HASHTAG_TRIGGER
             hashtags = [tag['text'] for tag in tweet['entities']['hashtags']]
             if tweet['geo'] != None:
                 if HASHTAG_TRIGGER in hashtags:

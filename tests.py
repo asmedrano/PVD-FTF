@@ -8,7 +8,12 @@ from finder import *
 """
 class TestTwitter(unittest.TestCase):
     def test_get_trucks(self):
-        print get_trucks()
+        #results = get_trucks()
+        pass
+
+    def test_single_true(self):
+        result = get_truck("Angel")
+        print result
 
 if __name__ == '__main__':
     unittest.main()
