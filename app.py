@@ -10,9 +10,8 @@ import json
 class MainPage(webapp2.RequestHandler):
 
     def get(self):
+        self.response.headers.add_header("Access-Control-Allow-Origin", "*")
         self.response.headers['Content-Type'] = 'application/json'
-        #self.response.write(json.dumps(get_trucks()))
-        #self.response.write("{}")
         truck = cgi.escape(self.request.get('truck'))
         if truck:
             self.response.write(json.dumps(get_truck(truck)))
@@ -23,6 +22,7 @@ class MainPage(webapp2.RequestHandler):
 class TrucksHandler(webapp2.RequestHandler):
 
     def get(self):
+        self.response.headers.add_header("Access-Control-Allow-Origin", "*")
         self.response.headers['Content-Type'] = 'application/json'
         self.response.write(json.dumps(FOOD_TRUCK_HANDLES))
 
